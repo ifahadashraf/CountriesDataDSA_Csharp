@@ -25,6 +25,7 @@ namespace DSA
             this.countries = countries1;
             createDataTable();
             populateDataTable(countries.root);
+            countriesDataTable.DefaultView.Sort="CountryName ASC";
             dataGridView1.DataSource = countriesDataTable;
             dataGridView1.Columns["CountryName"].ReadOnly = true;
         }
