@@ -26,23 +26,26 @@ namespace DSA
             createDataTable();
             populateDataTable(countries.root);
             dataGridView1.DataSource = countriesDataTable;
+            dataGridView1.Columns["CountryName"].ReadOnly = true;
         }
 
         private void createDataTable()
         {
             countriesDataTable = new DataTable();
-            DataColumn name = new DataColumn("Country Name");
+            DataColumn name = new DataColumn("CountryName");
             DataColumn gdp = new DataColumn("GDP");
             DataColumn inflation = new DataColumn("Inflation");
             DataColumn tradeBalance = new DataColumn("Trade Balance");
             DataColumn ranking = new DataColumn("Ranking");
-            DataColumn traders = new DataColumn("Trade Partners");
+            DataColumn traders = new DataColumn("TradePartners");
+            DataColumn height = new DataColumn("Height");
             countriesDataTable.Columns.Add(name);
             countriesDataTable.Columns.Add(gdp);
             countriesDataTable.Columns.Add(inflation);
             countriesDataTable.Columns.Add(tradeBalance);
             countriesDataTable.Columns.Add(ranking);
             countriesDataTable.Columns.Add(traders);
+            countriesDataTable.Columns.Add(height);
         }
 
         public void populateDataTable(MyNode node)
@@ -60,15 +63,74 @@ namespace DSA
                     row[5] += s;
                     row[5] += ",";
                 }
+                row[6] = node.nodeHeight;
                 countriesDataTable.Rows.Add(row);
                 populateDataTable(node.left);
                 populateDataTable(node.right);
             }
         }
 
+        public void updateDataTable(MyNode node,DataRow row)
+        {
+            if (node != null)
+            {
+                if(node.countryName.Equals(row[0]))
+                {
+                    node.countryName = row[0].ToString();
+                    node.gdpGrowth = Convert.ToDouble(row[1]);
+                    node.inflation = Convert.ToDouble(row[2]);
+                    node.tradeBalance = Convert.ToDouble(row[3]);
+                    node.ranking = Convert.ToInt32(row[4]);
+                    node.tradePartners.Clear();
+                    foreach (String s in row[5].ToString().Split(','))
+                    {
+                        node.tradePartners.Add(s);
+                    }
+                    node.nodeHeight = Convert.ToInt32(row[6]);
+                }
+                updateDataTable(node.left,row);
+                updateDataTable(node.right,row);
+            }
+        }
+
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                var changedRow = countriesDataTable.Rows[e.RowIndex];
+                updateDataTable(countries.root, changedRow);
+            }
+            catch(Exception ec){}
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = string.Format("CountryName LIKE '{0}%'", textBox1.Text);
+        }
+
+        private void label2_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = string.Format("TradePartners LIKE '%{0}%'", textBox2.Text);
         }
     }
 }

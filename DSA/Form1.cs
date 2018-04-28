@@ -76,5 +76,11 @@ namespace DSA
             UniqueCountries form = new UniqueCountries(countries);
             form.Show();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            RemoveCountry form = new RemoveCountry(countries);
+            form.Show();
+        }
     }
 }

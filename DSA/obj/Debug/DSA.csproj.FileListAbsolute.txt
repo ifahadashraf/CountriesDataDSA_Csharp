@@ -7,3 +7,5 @@ D:\VisualStudioProjects\DSA\DSA\obj\Debug\DSA.exe
 D:\VisualStudioProjects\DSA\DSA\obj\Debug\DSA.pdb
 D:\VisualStudioProjects\DSA\DSA\obj\Debug\DSA.Form1.resources
 D:\VisualStudioProjects\DSA\DSA\obj\Debug\DSA.UniqueCountries.resources
+D:\VisualStudioProjects\DSA\DSA\obj\Debug\DSA.csprojResolveAssemblyReference.cache
+D:\VisualStudioProjects\DSA\DSA\obj\Debug\DSA.RemoveCountry.resources
